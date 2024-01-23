@@ -1,3 +1,5 @@
+require_relative "card.rb"
+
 class Board
     def initialize(side)
         raise "side has to be an even num" if side.odd? #size has to be even!
@@ -5,6 +7,7 @@ class Board
         @pairs = (side * side) / 2 #num of pairs that we need.
         str = "abcdefghijklmnopqrstuvwxyz"
         @pairs_array = str[0...@pairs].split("")
+        @pairs_array.map! { |pair| Card.new(pair) }
     end
 
     def [](pos)
@@ -20,20 +23,31 @@ class Board
     end
 
     def populate #test.populate
-        @pairs_array.each do |pair| #(a), b, c
+        @pairs_array.each do |card| # Card(a), Card(b), Card(c) ...
             i = 0
             while i < 2
                 row = rand(0...@grid.length)
                 col = rand(0...@grid.length)
                 pos = [row, col] #1, 2
+                p card 
+                p @grid[row][col]
                 if @grid[row][col] == nil 
-                    self[pos] = pair # @grid[row][col]
+                    self[pos] = card # @grid[row][col]
                     i += 1 #increment if placement successful
+                    p "success #{card.reveal}"
                 end
             end
         end
         p @grid
     end 
+
+    def render
+        @grid.each do |row|
+            puts row
+        end
+    end
+
+
 end
 
 
