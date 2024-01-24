@@ -43,11 +43,20 @@ class Board
 
     def render
         @grid.each do |row|
-            puts row
+            p row.map {|card| card.side_up }
         end
     end
 
+    def reveal(guess_array)
+        chosen_card = self[guess_array]
+        #grid at pos, show the card . reveal, then return that value
+        p chosen_card.reveal if chosen_card.side_up == " "
+        
+    end
 
+    def won?
+        #grid.flatten.all? {|card| card = card.reveal}
+    end
 end
 
 
@@ -57,4 +66,7 @@ end
 if __FILE__ == $PROGRAM_NAME
     board_test = Board.new(4)
     board_test.populate
+    board_test.render
+   p board_test.reveal([1,1]) 
+    board_test.render
 end

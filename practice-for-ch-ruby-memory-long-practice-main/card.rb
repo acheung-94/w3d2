@@ -3,6 +3,11 @@ class Card
         @face_value = value
         @up = @face_value
         @down = " "
+        @side_up = @down
+    end
+
+    def side_up
+        @side_up
     end
 
     def hide
@@ -26,5 +31,5 @@ if __FILE__ == $PROGRAM_NAME
 p test = Card.new(:C)
 p test.hide
 
-p test
+p test.side_up
 end
